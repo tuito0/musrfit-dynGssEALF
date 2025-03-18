@@ -14,7 +14,7 @@ J. Phys. Soc. Jpn. 93, 044602 (2024). DOI: 10.7566/JPSJ.93.044602
 
 ## INSTALLATION
 
-[Requirements] musrfit/ROOT running environment on any platform (see the musrfit document for more information)
+[Requirements] musrfit/ROOT running environment on any platform (see the [musrfit documentation](https://lmu.web.psi.ch/musrfit/user/html/index.html) for more information)
 
 1. Unzip dynGssEALF_tbl_*.cpp.gz
 
