@@ -26,7 +26,7 @@ J. Phys. Soc. Jpn. 93, 044602 (2024). DOI: 10.7566/JPSJ.93.044602
 ## USAGE:
 
 The typical call through the msr-file would be
-
+```
 \###############################################################
 
 FITPARAMETER
@@ -54,3 +54,4 @@ asymmetry      2
 userFcn  libdynGssEALFLibrary.so   dynGssEALF   3   4   5   6 (LF Q Delta nu)
 
 \###############################################################
+```
