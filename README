@@ -17,7 +17,7 @@ INSTALLATION:
 
 [Requirements] musrfit/ROOT running environment on any platform (see the musrfit document for more information)
 
-1. Unzip dynGssEALF_tbl_<vestion>.gz
+1. Unzip dynGssEALF_tbl_<version>.cpp.gz
 
 2. Edit the "INSTBASE" variable in makefile to fit your installation location.
 (By default, header and library files will be installed in $ROOTSYS/include/ and $ROOTSYS/lib/, respectively.)
