@@ -42,3 +42,5 @@ asymmetry      2
 userFcn  libdynGssEALFLibrary.so   dynGssEALF   3   4   5   6 (LF Q Delta nu)
 ###############################################################
 ```
+where the values for LF, Delta, and nu are given in Tesla, (microsec)^-1 and MHz, respectively.
+
