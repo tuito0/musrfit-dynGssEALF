@@ -7,12 +7,12 @@ In the current version, the function returns 0 if provided parameters are out of
 
 
 
-## CITATION:
+## CITATION
 
 T. U. Ito and R. Kadono, Distinguishing Ion Dynamics from Muon Diffusion in Muon Spin Relaxation,
 J. Phys. Soc. Jpn. 93, 044602 (2024). DOI: 10.7566/JPSJ.93.044602
 
-## INSTALLATION:
+## INSTALLATION
 
 [Requirements] musrfit/ROOT running environment on any platform (see the musrfit document for more information)
 
@@ -23,7 +23,7 @@ J. Phys. Soc. Jpn. 93, 044602 (2024). DOI: 10.7566/JPSJ.93.044602
 
 3. Make and make install
 
-## USAGE:
+## USAGE
 
 The typical call through the msr-file would be
 ```
