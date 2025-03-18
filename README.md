@@ -1,7 +1,7 @@
 # musrfit-dynGssEALF
 ## WHAT IS THIS?
 
-This set of source files implements the longitudinal-field muon spin relaxation function defined in J. Phys. Soc. Jpn. 93, 044602 (2024) as a user function for [musrfit](https://rmlmcfadden.github.io/musr/musrfit/).
+This set of source files implements the longitudinal-field muon spin relaxation function defined in [J. Phys. Soc. Jpn. 93, 044602 (2024)](https://journals.jps.jp/doi/10.7566/JPSJ.93.044602) as a user function for [musrfit](https://rmlmcfadden.github.io/musr/musrfit/).
 This function describes muon spin relaxation in fluctuating local fields that exhibit the Edwards-Anderson-type autocorrelation, parameterized with Delta, nu, Q, and B_{LF}.
 In the current version, the function returns 0 if provided parameters are out of range (supported ranges: 0 <= Delta*t <= 6, nu >= 0, 0 <= Q <= 1, B_{LF} >= 0).
 
@@ -10,7 +10,7 @@ In the current version, the function returns 0 if provided parameters are out of
 ## CITATION
 
 T. U. Ito and R. Kadono, Distinguishing Ion Dynamics from Muon Diffusion in Muon Spin Relaxation,
-J. Phys. Soc. Jpn. 93, 044602 (2024). DOI: 10.7566/JPSJ.93.044602
+[J. Phys. Soc. Jpn. 93, 044602 (2024)](https://journals.jps.jp/doi/10.7566/JPSJ.93.044602). DOI: 10.7566/JPSJ.93.044602
 
 ## INSTALLATION
 
