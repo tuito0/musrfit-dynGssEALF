@@ -27,31 +27,18 @@ J. Phys. Soc. Jpn. 93, 044602 (2024). DOI: 10.7566/JPSJ.93.044602
 
 The typical call through the msr-file would be
 ```
-\###############################################################
-
+###############################################################
 FITPARAMETER
-
-\#      Nr. Name        Value     Step      Pos_Error  Boundaries
-
-        1 Alpha       1.         0.01        none        0        2
-        
+#      Nr. Name        Value     Step      Pos_Error  Boundaries
+        1 Alpha       1.         0.01        none        0        2     
         2 Asy         0.25       0.01        none        0.1     0.3
-        
         3 LF          0.001      0.00        none        0        0.1
-        
         4 Q           0.5        0.01        none        0.3     1
-        
         5 Delta       0.2        0.01        none        0.15   0.25
-        
         6 nu          1.5        0.01        none        0        10
-
 \##############################################################
-
 THEORY
-
 asymmetry      2
-
 userFcn  libdynGssEALFLibrary.so   dynGssEALF   3   4   5   6 (LF Q Delta nu)
-
-\###############################################################
+###############################################################
 ```
