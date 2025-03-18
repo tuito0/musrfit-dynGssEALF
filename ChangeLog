@@ -1,0 +1,11 @@
+Release of v0.1.0-beta, April 15, 2024
+=================================
+Original version.
+Note that this version has not been fully tested and
+comes with ABSOLUTELY NO WARRANTY.
+
+
+Release of v0.1.1-beta, March 18, 2025
+=================================
+Updated the makefile to enable compilation on macOS.
+Bundled the gendynGssEALF tool for generating numerical tables.
