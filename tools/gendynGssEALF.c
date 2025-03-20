@@ -129,7 +129,7 @@ void *calc_pol(void *arg)
   
   for(k=0;k<ntry_th;k++){
     if((k%10000)==0) printf("%d: #%d/%d\n", id,k,ntry_th);
-    multivariate_gaussian(sigma_sta,Bint_sta,id);
+      multivariate_gaussian(sigma_sta,Bint_sta,id);
       gsl_vector_memcpy(pol,pol0);
       multivariate_gaussian(sigma,Bint,id);
       gsl_vector_memcpy(Btot,Bint);
