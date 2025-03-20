@@ -58,7 +58,7 @@ double sigma_sta;
 double sigma;
 //field flip rate for the Q component (<< 1.0/dt)
 double nu1;
-//field flip rate for the the 1-Q component (<< 1.0/dt, it also affects the Q component)
+//field flip rate for the 1-Q component (<< 1.0/dt, it also affects the Q component)
 double nu2;
 //longitudinal field in G
 double lf;
@@ -181,7 +181,7 @@ int main(int argc, char *argv[]){
   nu1 = (double)atof(argv[3])*(double)atof(argv[1]);
   //longitudinal field in G
   lf = (double)atof(argv[4])*(double)atof(argv[1])/gmmm;
-  //field flip rate for the the 1-Q component (<< 1.0/dt, it also affects the Q component)
+  //field flip rate for the 1-Q component (<< 1.0/dt, it also affects the Q component)
   nu2 = (double)atof(argv[5])*(double)atof(argv[1]);
 
 
