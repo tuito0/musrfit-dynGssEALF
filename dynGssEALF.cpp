@@ -43,7 +43,7 @@ Double_t dynGssEALF::glf_narrowlim(Double_t t, Double_t delta, Double_t Q, Doubl
   if(wL==0){
     g_sta = 1.0/3.0+2.0/3.0*(1.0-(1.0-Q)*delta*delta*t*t)*exp(-0.5*(1.0-Q)*delta*delta*t*t); //Static KT function
   }   
-  else if(wL/(delta*sqrt(1.0-Q))>=5.0){
+  else if(wL/(delta*sqrt(1.0-Q)+1.0e-5)>=5.0){
 
     g_sta = exp( -2.0*(1.0-Q)*delta*delta/(wL*wL)*(1.0-exp(-0.5*(1.0-Q)*delta*delta*t*t)*cos(wL*t)) );   //Modified Abragam function with nu=0
   }
