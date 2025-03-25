@@ -22,7 +22,7 @@ INSTALLATION:
 2. Edit the "INSTBASE" variable in makefile to fit your installation location.
 (By default, header and library files will be installed in $ROOTSYS/include/ and $ROOTSYS/lib/, respectively.)
 
-2. Edit the "TABLE_PATH" variable in makefile to fit your table location. Only ABSOLUTE PATH is accepatable.
+2. Edit the "TABLE_PATH" variable in makefile to fit your table location. Only ABSOLUTE PATH is acceptable.
 
 4. Make and make install
 
