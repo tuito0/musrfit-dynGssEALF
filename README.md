@@ -2,7 +2,7 @@
 ## WHAT IS THIS?
 
 This set of source files implements the longitudinal-field muon spin relaxation function defined in [J. Phys. Soc. Jpn. 93, 044602 (2024)](https://journals.jps.jp/doi/10.7566/JPSJ.93.044602) as a user function for [musrfit](https://rmlmcfadden.github.io/musr/musrfit/).
-This function describes muon spin relaxation in fluctuating local fields that exhibit the Edwards-Anderson-type autocorrelation　for the nu_{muon} = 0 case in eq.11 of the above paper, parameterized with Delta, nu, Q, and B_{LF}.
+This function describes muon spin relaxation in fluctuating local fields that exhibit the Edwards-Anderson-type autocorrelation for the nu_{muon} = 0 case in eq.11 of the above paper, parameterized with Delta, nu, Q, and B_{LF}.
 In the current version, the function returns 0 if provided parameters are out of range (supported ranges: 0 <= Delta*t <= 6, nu >= 0, 0 <= Q <= 1, B_{LF} >= 0).
 The source files for an experimental function for the nu_{ion}, nu_{muon} >= 0 case are also bundled in the dual_diffusion_model directory. For more information, see the README file in that derectory. 
 
