@@ -7,6 +7,6 @@ comes with ABSOLUTELY NO WARRANTY.
 
 Release of v0.1.1-beta, March 18, 2025
 =================================
-Updated the makefile to enable compilation on macOS.
+Updated the makefile to enable compilation on macOS (contribution from Dr. M. Hiraishi).
 Bundled the gendynGssEALF tool for generating numerical tables.
 Bundled the gendynGssEALF_2nu tool for generating numerical tables for the case in which both ions and muons diffuse
