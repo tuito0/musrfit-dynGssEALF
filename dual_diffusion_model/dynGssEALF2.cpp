@@ -29,6 +29,48 @@
 
 #include "dynGssEALF2.h"
 
+Bool_t dynGssEALF2::cache_valid = false;
+Float_t***** dynGssEALF2::table = nullptr;
+
+void dynGssEALF2::allocateTable(){
+  if(table != nullptr) {
+    return;
+  }
+  table = new Float_t****[N_DT];
+  for (Int_t i=0; i < N_DT; i++) {
+    table[i] = new Float_t***[N_Q];
+    for (Int_t j=0; j < N_Q; j++) {
+      table[i][j] = new Float_t**[N_NU];
+      for (Int_t k=0; k < N_NU; k++) {
+	table[i][j][k] = new Float_t*[N_LF];
+	for (Int_t l=0; l < N_LF; l++) {
+	  table[i][j][k][l] = new Float_t[N_NU2];
+	}
+      }
+    }
+  }
+}
+
+void dynGssEALF2::loadTable(){
+  ifstream file(TABLE_PATH, ios::binary);
+  if (!file.is_open()) {
+    cerr << "Table for dynGssEALF2 not detected." << endl;
+    throw runtime_error("file open error");
+  }
+  else{
+    cout << "Table for dynGssEALF2 detected." << endl;
+    for (Int_t i=0; i < N_DT; i++) {
+      for (Int_t j=0; j < N_Q; j++) {
+	for (Int_t k=0; k < N_NU; k++) {
+	  for (Int_t l=0; l < N_LF; l++) {
+	    file.read(reinterpret_cast<char*>(table[i][j][k][l]), N_NU2*sizeof(Float_t));
+	  }
+	}
+      }
+    }
+    file.close();
+  }
+}
 
 
 Double_t dynGssEALF2::glf_narrowlim(Double_t t, Double_t delta, Double_t Q, Double_t nu1, Double_t nu2, Double_t LF) const {
@@ -53,9 +95,9 @@ Double_t dynGssEALF2::glf_narrowlim(Double_t t, Double_t delta, Double_t Q, Doub
     else{
       g_sta = dynGssEALF2::glf(t,delta*sqrt(1.0-Q),1.0,nu2,0.0,LF);
     }
+
     return g_dyn*g_sta;
   }
-
   else if(Q==0.0){
     g_dyn = 1.0;
     if(((nu2/(delta*sqrt(1.0-Q)) >= NARROW_LIM))||(wL/(delta*sqrt(1.0-Q)) >= HLF_LIM)){
