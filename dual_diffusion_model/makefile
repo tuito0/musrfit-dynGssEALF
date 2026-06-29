@@ -19,7 +19,7 @@ SOFLAGS       = -O -shared
 # installation location; please edit it to fit your environment.
 INSTBASE       =$(ROOTSYS)
 # FULL PATH to the MC table ; please edit it to fit your environment.
-TABLE_PATH     =/home/user1/musrfit/musrfit-dynGssEALF2-v0.1.0beta/dynGssEALF2_tbl_v0.1.0.bin
+TABLE_PATH     =/home/user1/musrfit/musrfit-dynGssEALF2-v0.1.1beta/dynGssEALF2_tbl_v0.1.0.bin
 
 
 # the output from the root-config script:
