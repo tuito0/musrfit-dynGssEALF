@@ -56,7 +56,11 @@ class dynGssEALF : public PUserFcnBase {
  public:
   // default constructor and destructor
   dynGssEALF(){
-    memcpy(table,dynGssEALF_tbl,sizeof(dynGssEALF_tbl));
+    if(!cache_valid){
+      memcpy(table,dynGssEALF_tbl,sizeof(dynGssEALF_tbl));
+      printf("dynGssEALF_tbl_v0.1.0 loaded.\n");
+      cache_valid = true;
+    }
   }
 
   ~dynGssEALF(){}
@@ -72,7 +76,8 @@ class dynGssEALF : public PUserFcnBase {
   ClassDef(dynGssEALF,1)
 
   private:
-  Float_t table[N_DT][N_Q][N_NU][N_LF];
+  static Bool_t cache_valid;
+  static Float_t table[N_DT][N_Q][N_NU][N_LF];
   const Double_t meas_Q[N_Q]={0,0.02,0.04,0.06,0.08,0.10,0.12,0.14,0.16,0.18,0.20,0.22,0.24,0.26,0.28,0.30,0.32,0.34,0.36,0.38,0.40,0.42,0.44,0.46,0.48,0.50,0.52,0.54,0.56,0.58,0.60,0.62,0.64,0.66,0.68,0.70,0.72,0.74,0.76,0.78,0.80,0.82,0.84,0.86,0.88,0.90,0.92,0.94,0.96,0.98,1};
   const Double_t meas_NUonD[N_NU]={0,0.1,0.2,0.333,0.5,0.667,1,1.429,2,2.5,3.333,5,6.667,10.00}; //nu/Delta
   const Double_t meas_LF[N_LF]={0,0.333,0.666,1,1.333,1.666,2,2.333,2.666,3,3.5,4,5,6,7,8,9,10};  //GMU*LF/Delta

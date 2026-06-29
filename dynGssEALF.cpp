@@ -29,7 +29,8 @@
 
 #include "dynGssEALF.h"
 
-
+Bool_t dynGssEALF::cache_valid = false;
+Float_t dynGssEALF::table[N_DT][N_Q][N_NU][N_LF] = {};
 
 Double_t dynGssEALF::glf_narrowlim(Double_t t, Double_t delta, Double_t Q, Double_t nu, Double_t LF) const {
   // nu/Delta >= NARROW_LIM; narrowing limit
