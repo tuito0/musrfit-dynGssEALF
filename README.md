@@ -11,11 +11,6 @@ The source files for an experimental function for the nu_{ion}, nu_{muon} >= 0 c
 T. U. Ito  
 Japan Atomic Energy Agency
 
-## DISCLAIMER
-
-This software is provided “as is” for research purposes, with absolutely no warranty.  
-Users are responsible for checking the Hamiltonian, parameter conventions, numerical settings, and physical interpretation of the calculated spectra.
-
 ## INSTALLATION
 
 [Requirements] musrfit/ROOT running environment on any platform (see the [musrfit documentation](https://lmu.web.psi.ch/musrfit/user/html/index.html) for more information)
