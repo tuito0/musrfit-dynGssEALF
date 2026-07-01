@@ -6,10 +6,15 @@ This function describes muon spin relaxation in fluctuating local fields that ex
 In the current version, the function returns 0 if provided parameters are out of range (supported ranges: 0 <= Delta*t <= 6, nu >= 0, 0 <= Q <= 1, B_{LF} >= 0).
 The source files for an experimental function for the nu_{ion}, nu_{muon} >= 0 case are also bundled in the dual_diffusion_model directory. See README in that directory for more information.
 
-## CITATION
+## Author
 
-T. U. Ito and R. Kadono, Distinguishing Ion Dynamics from Muon Diffusion in Muon Spin Relaxation,
-[J. Phys. Soc. Jpn. 93, 044602 (2024)](https://journals.jps.jp/doi/10.7566/JPSJ.93.044602). DOI: 10.7566/JPSJ.93.044602
+T. U. Ito  
+Japan Atomic Energy Agency
+
+## Disclaimer
+
+This software is provided “as is” for research purposes, with absolutely no warranty.  
+Users are responsible for checking the Hamiltonian, parameter conventions, numerical settings, and physical interpretation of the calculated spectra.
 
 ## INSTALLATION
 
@@ -42,4 +47,10 @@ userFcn  libdynGssEALFLibrary.so   dynGssEALF   3   4   5   6 (LF Q Delta nu)
 ###############################################################
 ```
 where the values for LF, Delta, and nu are given in Tesla, (microsec)^-1 and MHz, respectively.
+
+## CITATION
+
+T. U. Ito and R. Kadono, Distinguishing Ion Dynamics from Muon Diffusion in Muon Spin Relaxation,
+[J. Phys. Soc. Jpn. 93, 044602 (2024)](https://journals.jps.jp/doi/10.7566/JPSJ.93.044602). DOI: 10.7566/JPSJ.93.044602
+
 
