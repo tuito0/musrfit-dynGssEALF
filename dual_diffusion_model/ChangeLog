@@ -8,3 +8,8 @@ comes with ABSOLUTELY NO WARRANTY.
 Release of v0.1.1-beta, June 29, 2026
 =================================
 Optimized the table data loading process.
+
+
+Release of v0.1.2-beta, July 3, 2026
+=================================
+Simplified the linear interpolation function.
