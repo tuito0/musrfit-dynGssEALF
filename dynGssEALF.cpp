@@ -71,68 +71,54 @@ Double_t dynGssEALF::glf_highLFlim(Double_t t, Double_t delta, Double_t Q, Doubl
 
 }
 
-Double_t dynGssEALF::glf(Double_t t, Double_t delta, Double_t Q, Double_t nu, Double_t LF) const
-{ 
 
-  Double_t a,b,c,d,suba,subb,subc,subd;
-  a=find_n(t,delta); b=find_k(Q); c=find_l(delta,nu); d=find_h(LF,delta);
-  suba=a-floor(a); subb=b-floor(b); subc=c-floor(c); subd=d-floor(d);
+Double_t dynGssEALF::glf(Double_t t,
+                         Double_t delta,
+                         Double_t Q,
+                         Double_t nu,
+                         Double_t LF) const
+{
+  const Double_t a = find_n(t, delta);
+  const Double_t b = find_k(Q);
+  const Double_t c = find_l(delta, nu);
+  const Double_t d = find_h(LF, delta);
 
-  if(suba==0.0) suba+=0.0001; //approximation
-  if(subb==0.0) subb+=0.0001; //approximation
-  if(subc==0.0) subc+=0.0001; //approximation
-  if(subd==0.0) subd+=0.0001; //approximation  
-  if(suba==1.0) suba-=0.0001; //approximation
-  if(subb==1.0) subb-=0.0001; //approximation
-  if(subc==1.0) subc-=0.0001; //approximation
-  if(subd==1.0) subd-=0.0001; //approximation
+  const Int_t ia = static_cast<Int_t>(std::floor(a));
+  const Int_t ib = static_cast<Int_t>(std::floor(b));
+  const Int_t ic = static_cast<Int_t>(std::floor(c));
+  const Int_t id = static_cast<Int_t>(std::floor(d));
 
-  Double_t p0000,p1000,p0100,p0010,p0001;
-  Double_t p1100,p1010,p1001,p0110,p0101,p0011;
-  Double_t p1110,p1101,p1011,p0111,p1111;
-  p0000=(Double_t)table[(Int_t)floor(a)][(Int_t)floor(b)][(Int_t)floor(c)][(Int_t)floor(d)];
-  p1000=(Double_t)table[(Int_t)floor(a)+1][(Int_t)floor(b)][(Int_t)floor(c)][(Int_t)floor(d)];
-  p0100=(Double_t)table[(Int_t)floor(a)][(Int_t)floor(b)+1][(Int_t)floor(c)][(Int_t)floor(d)];
-  p0010=(Double_t)table[(Int_t)floor(a)][(Int_t)floor(b)][(Int_t)floor(c)+1][(Int_t)floor(d)];
-  p0001=(Double_t)table[(Int_t)floor(a)][(Int_t)floor(b)][(Int_t)floor(c)][(Int_t)floor(d)+1];  
-  p1100=(Double_t)table[(Int_t)floor(a)+1][(Int_t)floor(b)+1][(Int_t)floor(c)][(Int_t)floor(d)];
-  p1010=(Double_t)table[(Int_t)floor(a)+1][(Int_t)floor(b)][(Int_t)floor(c)+1][(Int_t)floor(d)];    
-  p1001=(Double_t)table[(Int_t)floor(a)+1][(Int_t)floor(b)][(Int_t)floor(c)][(Int_t)floor(d)+1];
-  p0110=(Double_t)table[(Int_t)floor(a)][(Int_t)floor(b)+1][(Int_t)floor(c)+1][(Int_t)floor(d)];
-  p0101=(Double_t)table[(Int_t)floor(a)][(Int_t)floor(b)+1][(Int_t)floor(c)][(Int_t)floor(d)+1];
-  p0011=(Double_t)table[(Int_t)floor(a)][(Int_t)floor(b)][(Int_t)floor(c)+1][(Int_t)floor(d)+1];
-  p1110=(Double_t)table[(Int_t)floor(a)+1][(Int_t)floor(b)+1][(Int_t)floor(c)+1][(Int_t)floor(d)];    
-  p1101=(Double_t)table[(Int_t)floor(a)+1][(Int_t)floor(b)+1][(Int_t)floor(c)][(Int_t)floor(d)+1];
-  p1011=(Double_t)table[(Int_t)floor(a)+1][(Int_t)floor(b)][(Int_t)floor(c)+1][(Int_t)floor(d)+1];
-  p0111=(Double_t)table[(Int_t)floor(a)][(Int_t)floor(b)+1][(Int_t)floor(c)+1][(Int_t)floor(d)+1];
-  p1111=(Double_t)table[(Int_t)floor(a)+1][(Int_t)floor(b)+1][(Int_t)floor(c)+1][(Int_t)floor(d)+1];    
-  
-  Double_t w0000,w1000,w0100,w0010,w0001;
-  Double_t w1100,w1010,w1001,w0110,w0101,w0011;
-  Double_t w1110,w1101,w1011,w0111,w1111;
-  Double_t result;
-  w0000=1.0/(suba*subb*subc*subd);
-  w1000=1.0/((1.0-suba)*subb*subc*subd);
-  w0100=1.0/(suba*(1.0-subb)*subc*subd);
-  w0010=1.0/(suba*subb*(1.0-subc)*subd);
-  w0001=1.0/(suba*subb*subc*(1.0-subd));
-  w1100=1.0/((1.0-suba)*(1.0-subb)*subc*subd);
-  w1010=1.0/((1.0-suba)*subb*(1.0-subc)*subd);
-  w1001=1.0/((1.0-suba)*subb*subc*(1.0-subd));
-  w0110=1.0/(suba*(1.0-subb)*(1.0-subc)*subd);
-  w0101=1.0/(suba*(1.0-subb)*subc*(1.0-subd));
-  w0011=1.0/(suba*subb*(1.0-subc)*(1.0-subd));
-  w1110=1.0/((1.0-suba)*(1.0-subb)*(1.0-subc)*subd);
-  w1101=1.0/((1.0-suba)*(1.0-subb)*subc*(1.0-subd));
-  w1011=1.0/((1.0-suba)*subb*(1.0-subc)*(1.0-subd));
-  w0111=1.0/(suba*(1.0-subb)*(1.0-subc)*(1.0-subd));
-  w1111=1.0/((1.0-suba)*(1.0-subb)*(1.0-subc)*(1.0-subd));
+  const Double_t fa = a - static_cast<Double_t>(ia);
+  const Double_t fb = b - static_cast<Double_t>(ib);
+  const Double_t fc = c - static_cast<Double_t>(ic);
+  const Double_t fd = d - static_cast<Double_t>(id);
 
-  result= (p0000*w0000+p1000*w1000+p0100*w0100+p0010*w0010+p0001*w0001+p1100*w1100+p1010*w1010+p1001*w1001+p0110*w0110+p0101*w0101+p0011*w0011+p1110*w1110+p1101*w1101+p1011*w1011+p0111*w0111+p1111*w1111)/(w0000+w1000+w0100+w0010+w0001+w1100+w1010+w1001+w0110+w0101+w0011+w1110+w1101+w1011+w0111+w1111);
-  
+  const Double_t wa[2] = {1.0 - fa, fa};
+  const Double_t wb[2] = {1.0 - fb, fb};
+  const Double_t wc[2] = {1.0 - fc, fc};
+  const Double_t wd[2] = {1.0 - fd, fd};
+
+  Double_t result = 0.0;
+
+  for (Int_t da = 0; da <= 1; ++da) {
+    for (Int_t db = 0; db <= 1; ++db) {
+      for (Int_t dc = 0; dc <= 1; ++dc) {
+        for (Int_t dd = 0; dd <= 1; ++dd) {
+
+          const Double_t w =
+              wa[da] * wb[db] * wc[dc] * wd[dd];
+
+          result += w * static_cast<Double_t>(
+              table[ia + da][ib + db][ic + dc][id + dd]
+          );
+        }
+      }
+    }
+  }
+
   return result;
+}  
 
-}
 
 Double_t dynGssEALF::find_n(Double_t t, Double_t delta) const {
   Int_t i=0;
