@@ -5,73 +5,93 @@
   Author: Takashi U. Ito
   e-mail: tuito@post.j-parc.jp
 
-***************************************************************************/
+  mmap-based table access version
 
-/***************************************************************************
- *   Copyright (C) 2024 by Takashi U. Ito                             *
- *   tuito@post.j-parc.jp                                                  *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+***************************************************************************/
 
 #include "dynGssEALF2.h"
 
-Bool_t dynGssEALF2::cache_valid = false;
-Float_t***** dynGssEALF2::table = nullptr;
+#include <cerrno>
+#include <cstring>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
-void dynGssEALF2::allocateTable(){
-  if(table != nullptr) {
-    return;
-  }
-  table = new Float_t****[N_DT];
-  for (Int_t i=0; i < N_DT; i++) {
-    table[i] = new Float_t***[N_Q];
-    for (Int_t j=0; j < N_Q; j++) {
-      table[i][j] = new Float_t**[N_NU];
-      for (Int_t k=0; k < N_NU; k++) {
-	table[i][j][k] = new Float_t*[N_LF];
-	for (Int_t l=0; l < N_LF; l++) {
-	  table[i][j][k][l] = new Float_t[N_NU2];
-	}
-      }
-    }
-  }
+std::once_flag dynGssEALF2::table_once;
+const Float_t* dynGssEALF2::table = nullptr;
+std::size_t dynGssEALF2::mapped_bytes = 0;
+
+namespace {
+class FdGuard {
+ public:
+  explicit FdGuard(int fd) : fd_(fd) {}
+  ~FdGuard() { if (fd_ >= 0) ::close(fd_); }
+  int get() const { return fd_; }
+  FdGuard(const FdGuard&) = delete;
+  FdGuard& operator=(const FdGuard&) = delete;
+ private:
+  int fd_;
+};
 }
 
-void dynGssEALF2::loadTable(){
-  ifstream file(TABLE_PATH, ios::binary);
-  if (!file.is_open()) {
-    cerr << "Table for dynGssEALF2 not detected." << endl;
-    throw runtime_error("file open error");
-  }
-  else{
-    cout << "Table for dynGssEALF2 detected." << endl;
-    for (Int_t i=0; i < N_DT; i++) {
-      for (Int_t j=0; j < N_Q; j++) {
-	for (Int_t k=0; k < N_NU; k++) {
-	  for (Int_t l=0; l < N_LF; l++) {
-	    file.read(reinterpret_cast<char*>(table[i][j][k][l]), N_NU2*sizeof(Float_t));
-	  }
-	}
-      }
-    }
-    file.close();
-  }
+dynGssEALF2::dynGssEALF2()
+{
+  std::call_once(table_once, &dynGssEALF2::mapTableOnce);
 }
 
+dynGssEALF2::~dynGssEALF2()
+{
+  // Do not munmap here. ROOT/musrfit may create several instances of this
+  // class. Since the mapping pointer is static, unmapping it in one instance's
+  // destructor could invalidate other live instances. The OS releases this
+  // read-only mapping automatically when the process terminates.
+}
+
+void dynGssEALF2::mapTableOnce()
+{
+  const int raw_fd = ::open(TABLE_PATH, O_RDONLY);
+  if (raw_fd < 0) {
+    throw std::runtime_error(std::string("dynGssEALF2: cannot open table file: ") +
+                             TABLE_PATH + ": " + std::strerror(errno));
+  }
+  FdGuard fd(raw_fd);
+
+  struct stat st;
+  if (::fstat(fd.get(), &st) != 0) {
+    throw std::runtime_error(std::string("dynGssEALF2: fstat failed for table file: ") +
+                             std::strerror(errno));
+  }
+
+  if (st.st_size != static_cast<off_t>(tableBytes)) {
+    throw std::runtime_error(
+        "dynGssEALF2: unexpected table file size. "
+        "Expected N_DT*N_Q*N_NU*N_LF*N_NU2*sizeof(Float_t) bytes. "
+        "Check TABLE_PATH and table version.");
+  }
+
+  void* p = ::mmap(nullptr, tableBytes, PROT_READ, MAP_PRIVATE, fd.get(), 0);
+  if (p == MAP_FAILED) {
+    throw std::runtime_error(std::string("dynGssEALF2: mmap failed: ") +
+                             std::strerror(errno));
+  }
+
+  table = static_cast<const Float_t*>(p);
+  mapped_bytes = tableBytes;
+
+  std::cout << "dynGssEALF2 table mmap'ed once from " << TABLE_PATH
+            << " (" << mapped_bytes / 1024.0 / 1024.0 << " MiB)"
+            << std::endl;
+}
+
+void dynGssEALF2::unmapTable()
+{
+  if (table != nullptr && mapped_bytes != 0) {
+    ::munmap(const_cast<Float_t*>(table), mapped_bytes);
+    table = nullptr;
+    mapped_bytes = 0;
+  }
+}
 
 Double_t dynGssEALF2::glf_narrowlim(Double_t t, Double_t delta, Double_t Q, Double_t nu1, Double_t nu2, Double_t LF) const {
   // nu/Delta >= NARROW_LIM; narrowing limit
