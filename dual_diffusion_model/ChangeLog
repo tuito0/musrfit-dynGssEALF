@@ -13,3 +13,8 @@ Optimized the table data loading process.
 Release of v0.1.2-beta, July 3, 2026
 =================================
 Simplified the linear interpolation function.
+
+
+Release of v0.1.3-beta, July 6, 2026
+=================================
+Replaced table loading with read-only mmap-based access to reduce I/O and memory overhead.
