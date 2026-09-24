@@ -53,7 +53,7 @@ where the values for LF, Delta, and nu are given in Tesla, (microsec)^-1 and MHz
 
 Please keep the following points in mind when using this function:
 
-- **Primary Purpose:** This function was developed primarily for simulating $\mu$SR spectra. The fitting capability is implemented purely as an optional feature.
+- **Primary Purpose:** This function was developed primarily for simulating muSR spectra. The fitting capability is implemented purely as an optional feature.
 
 - **Reference & Intent:** For full details on the development background, physical intent, and examples of simulation applications, please refer to [arXiv:2505.09147](https://doi.org/10.48550/arXiv.2505.09147).
 
