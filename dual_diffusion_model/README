@@ -51,6 +51,21 @@ userFcn  libdynGssEALF2Library.so   dynGssEALF2   3   4   5   6   7  (LF Q Delta
 where the values for LF, Delta, and nu_s are given in Tesla, (microsec)^-1 and MHz, respectively.
 
 
+## IMPORTANT NOTES ON USAGE
+
+Please keep the following points in mind when using this function:
+
+- **Primary Purpose:** This function was developed primarily for simulating $\mu$SR spectra. The fitting capability is implemented purely as an optional feature.
+
+- **Reference & Intent:** For full details on the development background, physical intent, and examples of simulation applications, please refer to [arXiv:2505.09147](https://doi.org/10.48550/arXiv.2505.09147).
+
+- **Parameter Correlation in Fitting:** When employing this function for parameter fitting, be aware that strong correlations exist among the parameters. It is strongly recommended to reduce the number of free parameters by applying appropriate physical constraints.
+
+- **Disclaimer on Unconstrained Fitting:** Unconstrained fitting with all parameters left free provides no guarantee of yielding physically meaningful results. Users are responsible for evaluating and interpreting fit results within a physically sound framework.
+
+- **Application to Ion Diffusion:** When applying this function to the analysis of ion diffusion, please exercise caution. As emphasized in Section *V. DISCUSSION AND SUMMARY* of [arXiv:2505.09147](https://doi.org/10.48550/arXiv.2505.09147), there are numerous essential physical factors that are not captured by this simplified model, requiring careful and critical interpretation of any analytical results.
+
+
 CITATION:
 
 T. U. Ito and R. Kadono, Distinguishing Ion Dynamics from Muon Diffusion in Muon Spin Relaxation, 
