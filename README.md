@@ -47,7 +47,7 @@ where the values for LF, Delta, and nu are given in Tesla, (microsec)^-1 and MHz
 
 Please keep the following points in mind when using this function:
 
-- **Primary Purpose:** This function was developed primarily for simulating $\mu$SR relaxation spectra. The fitting capability is implemented purely as an optional feature.
+- **Primary Purpose:** This function was developed primarily for simulating $\mu$SR spectra. The fitting capability is implemented purely as an optional feature.
 - **Reference & Intent:** For full details on the development background, physical intent, and examples of simulation applications, please refer to [arXiv:2505.09147](https://doi.org/10.48550/arXiv.2505.09147).
 - **Parameter Correlation in Fitting:** When employing this function for parameter fitting, be aware that strong correlations exist among the parameters. It is strongly recommended to reduce the number of free parameters by applying appropriate physical constraints.
 - **Disclaimer on Unconstrained Fitting:** Unconstrained fitting with all parameters left free provides no guarantee of yielding physically meaningful results. Users are responsible for evaluating and interpreting fit results within a physically sound framework.
